@@ -1,0 +1,45 @@
+# Program that reduces a matrix to reduced row echelon form
+import numpy as np
+
+A = np.array([	[2, 3, 2, 3, 18], 
+				[7, 2, 3, 5, 26], 
+				[3, 4, 3, 9, 2],
+				[1, 3, 4, 2, 27]	], dtype=float )
+
+print(f"Matrix A = \n{A}\n")
+
+def reduce_row(matrix, j):
+	""" Takes a matrix and reduces its column j """
+	m = len(matrix)
+
+	# Switches rows if element j, j = 0
+	if matrix[j-1, j-1] == 0:
+		for i in range(j, m+1):
+			if matrix[i-1, j-1] != 0:
+				# Switches rows
+				r1 = matrix[j-1].copy()
+				r2 = matrix[i-1].copy()
+				matrix[j-1] = r2
+				matrix[i-1] = r1
+
+	# Reduces row j so element j, j = 1
+	if matrix[j-1, j-1] != 1:
+		matrix[j-1] = matrix[j-1] * (1 / matrix[j-1, j-1])
+
+	# Reduces remaining rows so all elements other than j, j are 0
+	for i in range(1, m+1):
+		if i != j and matrix[i-1, j-1] != 0:
+			# Calculates the coefficient neccary to multiply row j with...
+			# ... and get 0 in all other rows i
+			k = matrix[i-1, j-1] / matrix[j-1, j-1]
+			matrix[i-1] = matrix [i-1] - k * matrix[j-1]
+
+def reduce_matrix(matrix):
+	""" Reduces matrix of arbitrary size, as long as m = n+1 """
+	# Calculates number of columns by taking the length of the first row
+	m = len(matrix[0])
+	for j in range(1, m):
+		reduce_row(matrix, j)
+
+reduce_matrix(A)
+print(f'Reduced row echelon form of A is \n{A}\n')
