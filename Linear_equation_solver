@@ -1,11 +1,13 @@
 # Program that reduces a matrix to reduced row echelon form
 import numpy as np
 
+# The matrix to be reduced:
 A = np.array([	[2, 3, 2, 3, 18], 
-				[7, 2, 3, 5, 26], 
-				[3, 4, 3, 9, 2],
-				[1, 3, 4, 2, 27]	], dtype=float )
+		[7, 2, 3, 5, 26], 
+		[3, 4, 3, 9, 2],
+		[1, 3, 4, 2, 27]	], dtype=float )
 
+# Prints the original matrix
 print(f"Matrix A = \n{A}\n")
 
 def reduce_row(matrix, j):
